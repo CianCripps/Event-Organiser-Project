@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+
+    <div class="container">
+        <section class="bg-secondary text-center text-light p-5  m-5">
+            <div class="d-flex">
+                <form action="" method="POST" novalidate>
+
+                    <div class="mb-2 mb-lg-4 p-lg-3">
+                    {{ form.hidden_tag() }}
+                    {{ form.user_id.label }}
+                    {{ form.user_id() }}
+                    {% for error in form.user_id.errors %}
+                        {{ error }}
+                    {% endfor %}
+                    </div>
+                    <div class="mb-2 mb-lg-4 p-lg-3">
+                    {{ form.password.label }}
+                    {{ form.password() }}
+                    {% for error in form.password.errors %}
+                        {{ error }}
+                    {% endfor %}
+                    </div>
+                    <div class="mb-2 mb-lg-4 p-lg-3">
+                    {{ form.password2.label }}
+                    {{ form.password2() }}
+                    {% for error in form.password2.errors %}
+                        {{ error }}
+                    {% endfor %}
+                    </div>
+                    {{ form.submit() }}
+                </form>
+                <img class="img-fluid w-50" src="{{ url_for('static', filename = 'register.svg') }}" alt="A cartoon image of a women holding a document" />
+            </div>
+        </section>
+    </div>
+
+
+{% endblock %}

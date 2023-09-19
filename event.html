@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+    <section class="bg-secondary text-light p-3 text-center">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-center" ></div>
+                <div>
+                    <h1>{{ event["name"] }}</h1>
+                    <p>
+                        {{ event["description"] }}
+                    </p>
+                    <!-- <button class="btn btn-primary btn_lg">Get organized now </button> possible place for button to events-->
+                </div>
+                <img class="img-fluid w-50" src="{{ url_for('static', filename = 'events.svg') }}" alt="A cartoon image of a man holding a document" />
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="bg-secondary text-center text-light p-5  m-5">
+            <div class="d-flex">
+                <form action="" method="POST" novalidate>
+
+                    <div class="mb-2 mb-lg-3 mt-lg-4 p-lg-1">
+                        {{ form.hidden_tag() }}
+                        {{ form.event_date.label }}
+                        {{ form.event_date() }}
+                        {% for error in form.event_date.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <br />
+                    <div class="mb-2 mb-lg-2 p-lg-1">
+                        {{ form.event_start.label }}
+                        {{ form.event_start() }}
+                        {% for error in form.event_start.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <br />
+                    <div class="mb-2 mb-lg-2 p-lg-1">
+                        {{ form.event_end.label }}
+                        {{ form.event_end() }}
+                        {% for error in form.event_end.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <br />
+                    <div class="mb-2 mb-lg-2 p-lg-1">
+                        {{ form.details.label }}
+                        {{ form.details() }}
+                        {% for error in form.details.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <br />
+                    {{ form.submit() }}
+                </form>
+                <img class="img-fluid w-50" src="{{ url_for('static', filename = 'event.svg') }}" alt="A cartoon image of a man holding a document" />
+            </div>
+        </section>
+    </div>
+    
+    <p>
+        {{ message }}
+    </p>
+{% endblock %}

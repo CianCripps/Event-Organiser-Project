@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+
+<section class="bg-secondary text-light p-5 text-center">
+    <div class="container">
+        <div> <!--class="d-flex align-items-center justify-content" can do flex if preferred but grid is my idea-->
+            <div>
+                <h1>My Events</h1>
+                <p class="lead">
+                    The home for your events
+                </p>
+                <!-- <button class="btn btn-primary btn_lg">Get organized now </button> possible place for button to events-->
+            </div>
+            <img class="img-fluid w-50" src="{{ url_for('static', filename = 'calender.svg') }}" alt="A cartoon image of a man holding a document" />
+        </div>
+    </div>
+</section>
+<section class="p-5">
+    <div class="container">
+        <div class="row text-center text-capitalize">
+            {% for event in events %}
+                <div class="col-md d-flex justify-content-center">
+                    <div class="card bg-dark text-light mb-3" style="width: 16rem;">
+                        <div class="card-body text-center">
+                            {% if event["description"] %}
+                                <h4 class="card-title mb-3">{{ event["description"] }}</h4>
+                            {% else %}
+                                <h4 class="card-title mb-3">{{ event["name"] }}</h4>
+                            {% endif %}
+                            <h5 class="card-title mb-3">On {{ event["date"] }}</h5>
+                            <h5 class="card-title mb-3">From {{ event["start_time"] }} To {{ event["end_time"] }}</h5>
+                            <a 
+                                href="{{ url_for('add_to_calender', event_id = event['event_id']) }}"
+                                class="btn btn-success">Add to calender
+                            </a>
+                            <a 
+                                href="{{ url_for('edit', event_id = event['event_id']) }}"
+                                class="btn btn-warning">Edit
+                            </a> 
+                            <a 
+                                href="{{ url_for('delete', event_id = event['event_id']) }}"
+                                class="btn btn-danger">Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% if session["user_id"] == "Admin" %}
+                <p>
+                    <a 
+                        href="{{ url_for('add_event')}}"
+                        class="btn btn-success">
+                        Add an event 
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</section>  
+    <p>
+        <a href="{{ url_for('events') }}">Add an event to your schedule</a>
+    </p>
+{% endblock %}

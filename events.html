@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+    <h1>Our event catalog</h1>
+    <table>
+        {% for event in events %}
+            <tr>
+                <td>{{ event["name"] }}</td>
+                <td>
+                    <a href="{{ url_for('event', event_id = event['event_id']) }}">
+                        Chose event
+                    </a>
+                </td>
+                
+            {% if session["user_id"] == "Admin" %}
+                <td>
+                    <p>
+                        <a href="{{ url_for('delete', event_id = event['event_id']) }}">
+                            Delete an event </a>
+                    </p>
+                </td> 
+            {% endif %}
+            </tr>
+        {% endfor %}
+        {% if session["user_id"] == "Admin" %}
+            <p>
+                <a href="{{ url_for('add_event')}}">
+                    Add an event </a>
+            </p>
+        {% endif %}
+    </table>
+    <p>
+        <a href="{{ url_for('index') }}">Home</a>
+    </p>
+{% endblock %}

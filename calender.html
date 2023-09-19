@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+
+    <section class="bg-secondary text-light p-3 text-center">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-center" ></div>
+            <div>
+                <h1>My Schedule</h1>
+                <p>
+                    Don't forget to keep on top of all your tasks by ticking the box when you've completed something!
+                </p>
+                <!-- <button class="btn btn-primary btn_lg">Get organized now </button> possible place for button to events-->
+            </div>
+            <img class="img-fluid w-50" src="{{ url_for('static', filename = 'schedule.svg') }}" alt="A cartoon image of a man holding a document" />
+        </div>
+    </div>
+    </section>
+    {% if calender %}
+        <div class="container">
+            <table class="table mt-3">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Status</th>
+                            <th scope="col">Task</th>
+                            <th scope="col">On</th>
+                            <th scope="col">From</th>
+                            <th scope="col">To</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                {% for event_id in calender %}
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                <input class="form-check-input me-1" type="checkbox" value=""> 
+                            </th>
+                            <td>{{ event_names[event_id] }}</td>
+                            <td>{{ event_dates[event_id] }}</td>
+                            <td>{{ event_starts[event_id] }}</td>
+                            <td>{{ event_ends[event_id] }}</td>
+                            <td>{{ details[event_id] }}</td>
+                            {% if event_id in calender %} 
+                                <td>
+                                    <a 
+                                        href="{{ url_for('remove_from_calender', event_id = event_id ) }}"
+                                        class="btn btn-danger">Remove
+                                    </a>  
+                                    <a 
+                                        href="{{ url_for('edit', event_id = event_id ) }}"
+                                        class="btn btn-warning">Edit
+                                    </a> 
+                                </td>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>      
+        </div>            
+    {% else %}
+        <p>Your day is free!</p>
+    {% endif %}
+            
+{% endblock %}
